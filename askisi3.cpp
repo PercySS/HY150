@@ -21,7 +21,7 @@ int main(){
 
     if (!cin) {
       error(u8"Δεν έδωσες αριθμό!");
-    } else if (arxtax < 0) {
+    } else if (height < 0) {
       error(u8"Έδωσες αρνητικό ύψος!");
     }
     
