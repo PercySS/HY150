@@ -8,7 +8,7 @@ int main() {
     cout << endl;
     vector<char> parenth;
     vector<int> pos;
-    int i; 
+    int i{0}; 
 
     while (i < str.size()) {
         if (str.at(i) == '(') {
@@ -16,26 +16,26 @@ int main() {
             pos.push_back(i);
            
         } else if (str.at(i) == ')') {
-            if (parenth.back() ==  '(') {
+            if ( parenth.size() != 0 && parenth.back() ==  '(') {
                 parenth.pop_back();
                 pos.pop_back();
              
             } else {
                 cout << "Wrong at position " << i << '.' << endl;
-                keep_window_open();
+                // keep_window_open();
                 return 0;
             }
-        } else {
-            i++;    
         }
+        i++;    
     }
 
     if (0 == parenth.size()) {
         cout << "Correct." << endl; 
-    } 
+    } else {
+        cout << "Wrong at position " << pos.back() << '.' << endl;
+    }
 
-
-    keep_window_open();
+    // keep_window_open();
     return 0;
 }
 
