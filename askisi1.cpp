@@ -10,34 +10,54 @@ int main(){
     // dilono kai zitao apo to xristi na m dosei diastaseis kai to plithos ton diastaseon
     int pldiast;
     double diast1, diast2, diast3;
-    cout << "Dose m tis diastaseis toy dianismatos kai tis syntetagmenes toy sto xoro.\n" << endl;
+    cout << "Type the dimensions and the components of the vector.\n" << endl;
+    
+    // Input dimensions
     cin >> pldiast;
-
+    // Exception
     if (!cin) {
+      throw runtime_error("Wrong input!");
+    }
+    cout << endl;
+   
+   
+    /* if (!cin) {
       error(u8"Δεν έδωσες αριθμό!");
     } else if (pldiast != 2 && pldiast != 3) {
       error(u8"Λάθος πλήθος διαστάσεων!");
-    }
+    } */
 
-    cout << endl;
+    //Input components
     cin >> diast1;
 
     if (!cin) {
+    throw runtime_error("Wrong input!");
+  }
+    /* if (!cin) {
       error(u8"Δεν έδωσες αριθμό!");
-    }
+    }*/
 
-    cin >> diast2;
+    cin >> diast2; 
 
     if (!cin) {
-      error(u8"Δεν έδωσες αριθμό!");
+      throw runtime_error("Wrong input!");
     }
+
+    /* if (!cin) {
+      error(u8"Δεν έδωσες αριθμό!");
+    } */
  
     if (pldiast == 3) {
         cin >> diast3 ;
+        //Excepion
+        if (!cin) {
+          throw runtime_error("Wrong input!");
+        }
         cout << endl;
-
+        // Output for 3 dimensions
         cout << vector_magnitude(diast1, diast2, diast3) << endl;
     } else {
+        //output for 2 dimensions
         cout << vector_magnitude(diast1, diast2) << endl;
     }
 
