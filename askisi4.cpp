@@ -1,64 +1,71 @@
 #include "std_lib_facilities.h"
 
-string getinput();
-void string_check(vector<char> a, vector<int> b, string c);
+string get_input();
+int string_check(string);
 
-int main() {
-    
-    string str = getinput();
+int main() {    
+    string str = get_input();
     cout << endl;
 
-    //Making a vector for checking perantheses
-    vector<char> parenth;
-    //Making vector for getting positions
-    vector<int> pos;
-    
+    int res = string_check(str);
 
-    string_check(parenth, pos, str);
-
+    if (res == -1) {
+      cout << "Correct." << endl; 
+    } else {
+      cout << "Wrong at position " << res << '.' << endl;
+    }
 
     keep_window_open();
     return 0;
 }
 
-string getinput() {
+string get_input() {
     cout << "Type a string!" << endl;
-    cout << "=>" ;
+    cout << "=> ";
     string str;
-    //Input string
+    // Input string
     getline(cin, str);
     return str;
 }
 
-void string_check(vector<char> parenth, vector<int> pos, string str) {
-    int i{0}; 
+// Return the position of the wrong parenthesis
+// or -1 in case the input is correct
+int string_check(string str) {
+    int i{0};
+
+    // Making a vector for checking perantheses
+    vector<char> parenth;
+    // Making vector for getting positions
+    vector<int> pos;
+
     while (i < str.size()) {
-        //Pushing back left parenthesis in the vector
+        // Push back left parenthesis in the vector
         if (str.at(i) == '(') {
             parenth.push_back(str.at(i));
             pos.push_back(i);
-        //If I find a right parenthesis I check vector   
+        // If I find a "right" parenthesis,
+        // I check vector for matching "left" parenthesis  
         } else if (str.at(i) == ')') {
-            //If previous parenthesis is left I pop it back and count it as a closed one
-            if ( parenth.size() != 0 && parenth.back() ==  '(') {
+            // If previous parenthesis is "left" I pop it back and count it as a closed one
+            if ( parenth.size() > 0 && parenth.back() ==  '(') {
                 parenth.pop_back();
                 pos.pop_back();
-            //If there isnt a left parenthesis theres output for wrong parenthesis 
+            // If there isn't a left parenthesis output the position of the wrong parenthesis 
             } else {
-                cout << "Wrong at position " << i << '.' << endl;
-                break;
+                return i;
             }
         }
         i++;    
     }
 
-    //Checking vector so there isnt any parentheses left inside
-    //That means the string is correct
-    if (0 == parenth.size()) {
-        cout << "Correct." << endl; 
-    //If theres a parenthesis left in the vector I get his position from the vector pos that is changing simultaneously with 
-    //vector parenth    
-    } else {
-        cout << "Wrong at position " << pos.back() << '.' << endl;
+    // Checking vector so there isn't any "open" parentheses left
+    if (parenth.size() > 0) {
+        // If there's a parenthesis left in the vector,
+        // I get it's position from vector "pos",
+        // that is changing along with vector "parenth"
+        return pos.back();
     }
+
+    // No errors found
+    return -1;
 }

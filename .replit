@@ -1,2 +1,2 @@
 language = "C++"
-run = "g++ askisi3.cpp -o askisi3.o && ./askisi3.o"
+run = "g++ askisi5.cpp -o askisi5.o && ./askisi5.o"
