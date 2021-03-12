@@ -1,33 +1,67 @@
 #include "std_lib_facilities.h"
 
-int main(){
-    //Giving g constant its actual value finding it from searching the web
-    const float g = 9.80665;
-    cout << "Parakalo eisagete thn arxiki taxythta se metra ana deyterolepto! ";
-    float arxtax;
-    cout << "=> ";
-    cin >> arxtax;
-    //Exception for initial velocity *arxiki taxitita*
-    if (!cin) {
-      throw runtime_error("Wrong input!");
-    }
+int getVelocity();
+int getHeight();
+
+float calculateTotalTime(int);
+float calculateRange(int, float);
+
+int main() {
+    int velocity = getVelocity(); 
+    int height = getHeight();
+
+    // Conversion km to m
+    height *= 1000;
+
+    float time = calculateTotalTime(height);
+    float range = calculateRange(velocity, time);
+
+    cout << "The total range that the object will go through is: " << range/1000 << "km" << endl;
+    cout << "The total time that the object will be in the air is: " << time << "sec" << endl;
+
     cout << endl;
+
+    keep_window_open();
+
+    return 0;
+}
+
+int getVelocity() {
+    float velocity;
+    cout << "Please enter initial velocity (in m/sec): ";
+    cout << "=> ";
+    cin >> velocity;
+
+    // Checks
+    if (!cin) {
+        throw runtime_error("Not a number!");
+    } else if (velocity < 0) {
+        throw runtime_error("Negative value!");
+    }
+
     /* if (!cin) {
       error(u8"Δεν έδωσες αριθμό!");
     } else if (arxtax < 0) {
       error(u8"Έδωσες αρνητική ταχύτητα!");
     } */
 
-    
-    cout << "Parakalo eisagete to ypsos toy gkremoy se km!";
+    cout << endl;
+
+    return velocity;
+}
+
+int getHeight() {
     float height;
+    cout << "Please enter value for height (in km): ";
     cout << "=> ";
     cin >> height;
-    // Exception for height 
-    if (!cin) {
-      throw runtime_error("Wrong input!");
-    }
 
+    // Checks
+    if (!cin) {
+      throw runtime_error("Not a number!");
+    } else if (height < 0) {
+      throw runtime_error("Negative value");
+    }
 
     /* if (!cin) {
       error(u8"Δεν έδωσες αριθμό!");
@@ -37,22 +71,17 @@ int main(){
     
     cout <<  endl;
 
-    
-    //Conversion km to m
-    height *= 1000;
+    return height;
+}
 
-    //Arithmetic operations for finding the total time
-    float t_ol;
-    t_ol = sqrt( (2 * height) / g );
+// Calculations for finding the total time
+float calculateTotalTime(int height) {
+    // Giving g constant its actual value finding it from searching the web
+    const float g = 9.80665;
+    return sqrt((2 * height) / g);
+}
 
-    //Arithmetic operations for finding total range
-    float belin;
-    belin = arxtax * t_ol;
-
-    cout << "The total range that the object will go through is: " << belin/1000 << "km" << endl;
-    cout << "The total time that the object will be in the air is: " << t_ol << "sec" << endl;
-
-    keep_window_open();
-
-    return 0;
+// Calculations for finding total range
+float calculateRange(int velocity, float time) {
+    return velocity * time;
 }
