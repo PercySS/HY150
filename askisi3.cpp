@@ -1,14 +1,16 @@
 #include "std_lib_facilities.h"
 
-int getVelocity();
-int getHeight();
+float getInput(string);
 
 float calculateTotalTime(int);
 float calculateRange(int, float);
 
 int main() {
-    int velocity = getVelocity(); 
-    int height = getHeight();
+    // int velocity = getVelocity(); 
+    // int height = getHeight();
+
+    int velocity = getInput("Please enter value for initial velocity (in m/sec)"); 
+    int height = getInput("Please enter value for height (in km)");
 
     // Conversion km to m
     height *= 1000;
@@ -26,52 +28,21 @@ int main() {
     return 0;
 }
 
-int getVelocity() {
-    float velocity;
-    cout << "Please enter initial velocity (in m/sec): ";
-    cout << "=> ";
-    cin >> velocity;
+float getInput(string message) {
+    float ret;
+    cout << message << " => ";
+    cin >> ret;
 
     // Checks
     if (!cin) {
         throw runtime_error("Not a number!");
-    } else if (velocity < 0) {
+    } else if (ret < 0) {
         throw runtime_error("Negative value!");
     }
 
-    /* if (!cin) {
-      error(u8"Δεν έδωσες αριθμό!");
-    } else if (arxtax < 0) {
-      error(u8"Έδωσες αρνητική ταχύτητα!");
-    } */
-
     cout << endl;
 
-    return velocity;
-}
-
-int getHeight() {
-    float height;
-    cout << "Please enter value for height (in km): ";
-    cout << "=> ";
-    cin >> height;
-
-    // Checks
-    if (!cin) {
-      throw runtime_error("Not a number!");
-    } else if (height < 0) {
-      throw runtime_error("Negative value");
-    }
-
-    /* if (!cin) {
-      error(u8"Δεν έδωσες αριθμό!");
-    } else if (height < 0) {
-      error(u8"Έδωσες αρνητικό ύψος!");
-    } */
-    
-    cout <<  endl;
-
-    return height;
+    return ret;
 }
 
 // Calculations for finding the total time
